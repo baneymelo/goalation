@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "babel src --out-dir build",
-    "dev": "nodemon index.js --exec babel-node",
+    "dev": "nodemon src/index.js --exec babel-node",
     "start": "nodemon build/index.js"
   }, 
   "author": "Baney Acosta, Tobias Boldizar, Ferds Guiang, Kevin Devial",
