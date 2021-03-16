@@ -1,4 +1,4 @@
-import { Model, model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 const transactionSchema = new Schema({
     date: String,
@@ -6,4 +6,4 @@ const transactionSchema = new Schema({
     status: [{ type: String}],
 })
 
-export default Model('goal', transactionSchema);
+export default model('goal', transactionSchema);

@@ -1,4 +1,4 @@
-import { Model, model, Schema } from 'mongoose'
+import { model, Schema } from 'mongoose'
 
 const goalSchema = new Schema({
     name: String,
@@ -7,4 +7,4 @@ const goalSchema = new Schema({
     transaction_id: { type: Schema.Types.ObjectId, ref: 'Transaction' }
 })
 
-export default Model('goal', goalSchema);
+export default model('goal', goalSchema);
