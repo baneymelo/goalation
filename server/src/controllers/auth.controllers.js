@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcryptjs";
+import { generateToken }  from "../utils";
 
 
 export const signUp = async (req, res) =>{
@@ -13,11 +14,12 @@ export const signUp = async (req, res) =>{
   })
 
   await user.save();
-  console.log(user);
+  const token = generateToken(user)
 
-  res.status(200).json({msg: 'OK'})
+  console.log(token);
+  res.status(200).json(token)
+
   } catch (error) {
-    /* res.status(400).json({msg: 'Invalid input'}) */
     console.log(error);
   }
 }
@@ -28,12 +30,13 @@ export const signIn = async (req, res) => {
     const { email, password } = await req.body;
     const user = await User.findOne({email}, {_id: 1, password: 1})
 
-    if(!user) return res.status(400).json({msg: 'Invalid email'})
+    if(!user) return res.status(401).json({msg: 'Invalid email'})
     const pwd = await bcrypt.compare(password, user.password)
 
-    if(!pwd) return res.status(400).json({msg: 'Invalid password'})
+    if(!pwd) return res.status(401).json({msg: 'Invalid password'})
+    const token = generateToken(user);
 
-    res.json({msg: 'Welcome!'})
+    res.status(201).json({msg: 'Welcome!', token})
     
   } catch (error) {
     console.log(error);

@@ -1,8 +1,9 @@
 import { Router } from "express";
-import * as authController from "../controllers/auth.controllers";
+import * as authCtrl from "../controllers/auth.controllers";
+import checkDuplicate from "../middlewares/checkDuplicate";
 const router = Router();
 
-router.post('/signup', authController.signUp)
-router.post('/signin', authController.signIn)
+router.post('/signup', checkDuplicate, authCtrl.signUp)
+router.post('/signin', authCtrl.signIn)
 
 export default router;
