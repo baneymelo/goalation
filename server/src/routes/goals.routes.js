@@ -5,5 +5,6 @@ const router = Router();
 
 router.get('/', verifyToken, goalsCtrl.getGoal)
 router.post('/', verifyToken, goalsCtrl.createGoal)
+router.put('/:goalId', verifyToken, goalsCtrl.editGoal)
 
 export default router;

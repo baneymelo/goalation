@@ -11,7 +11,6 @@ export const getGoal = async (req, res)=>{
     } catch (error) {
         return res.status(400)
     }   
-
 }
 
 export const createGoal = async (req, res)=>{
@@ -27,8 +26,8 @@ export const createGoal = async (req, res)=>{
             expire_date
         })
 
-        const newGoal = await goal.save();
-        await user.goals_id.push(newGoal._id)
+        await goal.save();
+        await user.goals_id.push(goal._id)
         await user.save();
 
         res.status(201).json('Goal successfully created')
@@ -36,23 +35,17 @@ export const createGoal = async (req, res)=>{
     } catch (error) {
         return res.status(400)
     }
-
 }
-export const updateGoal = async (req, res)=>{
+
+export const editGoal = async (req, res)=>{
 
     try {
-        
+        const { name, period, category, expire_date } = req.body;
+        await Goal.findByIdAndUpdate(req.user, {name, period, category, expire_date})
+
+        res.status(201).json('Goal successfully modified')
+
     } catch (error) {
         return res.status(400)
     }
-    
-}
-export const deleteGoal = async (req, res)=>{
-    
-    try {
-        
-    } catch (error) {
-        return res.status(400)
-    }
-
 }

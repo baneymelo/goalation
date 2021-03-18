@@ -4,6 +4,7 @@ import { generateToken }  from "../utils";
 
 
 export const signUp = async (req, res) =>{
+
   try {
     const { email, password, fullname } = await req.body;
 
@@ -26,6 +27,7 @@ export const signUp = async (req, res) =>{
 
 
 export const signIn = async (req, res) => {
+  
   try {
     const { email, password } = await req.body;
     const user = await User.findOne({email}, {_id: 1, password: 1})
