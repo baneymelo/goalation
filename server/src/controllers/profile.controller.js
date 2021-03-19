@@ -1,5 +1,6 @@
 import User from "../models/User";
 import Goal from "../models/Goal";
+import { validateKeys } from "../utils";
 
 
 export const getProfile = async (req, res)=>{
@@ -16,12 +17,13 @@ export const getProfile = async (req, res)=>{
 export const editProfile = async (req, res)=>{
     
     try {
-        const { email, username, fullname } = req.body;
-        await User.findByIdAndUpdate(req.user, {email, username, fullname})
+        req.body = await validateKeys(req.body, res)
+        await User.findByIdAndUpdate(req.user, req.body)
 
-        res.status(200).json(user)
+        res.status(200).json('Info successfully changed')
             
     } catch (error) {
         return res.status(400)
     }   
 }
+
