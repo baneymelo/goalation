@@ -1,0 +1,42 @@
+/* General */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: Fira Sans;
+}
+
+/* Home Section */
+
+.nav {
+    height: 7vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.2);
+    padding: 0 200px;
+    color: #404040;
+}
+
+.nav-title {
+    font-size: large;
+    cursor: pointer;
+}
+
+.nav-menu {
+    font-size: large;
+    display: flex;
+    list-style: none;
+}
+
+.nav-link {
+    cursor: pointer;
+    margin: 0 25px;
+}
+
+.nav-login {
+    font-size: large;
+    cursor: pointer;
+}

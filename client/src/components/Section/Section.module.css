@@ -1,0 +1,16 @@
+
+
+section {
+    margin: 0;
+    padding: 10% 25% ;
+    background-image: linear-gradient(
+      to bottom right, 
+      rgb(0, 255, 234), #187bbd
+    );
+    font-size:xx-large;
+}
+
+h1{
+  margin: 0;
+  color: aliceblue;
+}
