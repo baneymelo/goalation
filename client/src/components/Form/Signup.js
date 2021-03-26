@@ -1,14 +1,13 @@
-/* eslint-disable no-unused-vars */
-import axios from "../../axios";
-
 import {React, useEffect, useState} from 'react'
-import { Container, Typography, CssBaseline, TextField, Avatar, Button, NativeSelect } from "@material-ui/core";
+import { Container, Typography, CssBaseline, TextField, Avatar, Button, NativeSelect, Grid, Link } from "@material-ui/core";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useForm, Controller } from "react-hook-form";
+
 import useStyles from "./styles";
+import axios from "../../helpers/axios";
 
 
-export default function Form(props) {
+export default function Signup(props) {
     
     const { handleSubmit, control, errors } = useForm();
     const [data, setData] = useState({ 
@@ -17,6 +16,12 @@ export default function Form(props) {
         password: '',
         user_type: ''
     })
+    const [sign, setSign] = useState('Sign in')
+    const [opt] = useState(['Sign in', 'Sign Up'])
+
+    const updateSign = () =>{
+        sign === opt[0] ? setSign(opt[1]) : setSign(opt[0])
+    }
     
     const updateData = data =>{
         setData(data)
@@ -54,7 +59,7 @@ export default function Form(props) {
         }
 
         if(verifyData()){
-            if(props.auth === 'Sign in'){
+            if(sign === 'Sign in'){
                 postData('signin');
             }else{
                 postData('signup');
@@ -74,92 +79,10 @@ export default function Form(props) {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5" color="primary">
-                      {props.auth}
+                      {sign}
                 </Typography>
 
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)} noValidate>                 
-
-                { props.auth === "Sign in"
-                
-                ?
-                <div>
-                    
-                <Controller
-                    as={
-                        <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"                                
-                        autoComplete="email"
-                        autoFocus
-                        />
-                        }
-                        name="email"
-                        control={control}
-                        defaultValue=""
-                        rules={{
-                            required: "Email is required",
-                            pattern: {
-                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                                message: "Invalid email format"
-                                }
-                            }
-                        }
-                />
-
-                <ErrorHandler errObj={errors} errProp='email'/>             
-                        
-
-                <Controller
-                    as={
-                        <TextField 
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="password"
-                        label="Password"
-                        name="password"
-                        autoComplete="Password"
-                        autoFocus
-                        />
-                    }
-                    name="password"
-                    control={control}
-                    defaultValue=""
-                    rules={{
-                        required: "Password is required",
-                        minLength: {
-                            value: 8,
-                            message: 'Password should be at-least 8 characters.'
-                            }
-                    }}
-                    
-                />
-
-                <ErrorHandler errObj={errors} errProp='password'/>
-
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    >
-                    Sign In
-                </Button>
-
-                
-                </div>
-
-
-
-                :
-                <div>
 
                 <Controller
                     as={
@@ -262,23 +185,28 @@ export default function Form(props) {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    
                     >
-                    Sign Up
+                    {sign}
                 </Button>
 
-
-                </div>
-                }
-
-
-                </form>
+                <Grid 
+                    container 
+                    direction="column"
+                    justify="center"
+                    alignItems="center">
+                    <Grid item >
+                    <Link onClick={updateSign} href="#" variant="body2">
+                        {sign === 'Sign in' ? 'Sign Up' : 'Sign in' }
+                    </Link>
+                    </Grid>
+                </Grid>
                 
-
-{/*                 <Typography component="h1" variant="h5" color="primary">
-                    {JSON.stringify(data)}
-                </Typography> */}
+                </form>
 
             </div>
         </Container>
     )
 }
+
+

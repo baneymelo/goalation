@@ -1,24 +1,26 @@
 import User from "../models/User";
 import bcrypt from "bcryptjs";
-import { generateToken }  from "../utils";
-
+import { generateToken, config }  from "../utils";
+import { verify } from "jsonwebtoken";
 
 export const signUp = async (req, res) =>{
 
   try {
-    const { email, password, fullname } = await req.body;
+
+    console.log(req.body);
+    const { email, password, fullname, user_type } = await req.body;
 
     const user = new User({
     email,
     password: await User.encryptPassword(password),
-    fullname
+    fullname,
+    user_type
   })
 
   await user.save();
   const token = generateToken(user)
 
-  console.log(token);
-  res.status(200).json(token)
+  res.status(200).send({token})
 
   } catch (error) {
     console.log(error);
@@ -38,9 +40,27 @@ export const signIn = async (req, res) => {
     if(!pwd) return res.status(401).json({msg: 'Invalid password'})
     const token = generateToken(user);
 
-    res.status(201).json({msg: 'Welcome!', token})
+    res.status(201).send({token})
     
   } catch (error) {
     console.log(error);
   }
 } 
+
+
+export const session = async (req, res) => {
+  try {
+    const authHeader = req.headers['authorization'];
+        
+        if(!authHeader) return res.send({session:false})
+        const token = authHeader.split(' ')[1]
+        const decoded = verify(token, config.SECRET)
+        const valid = await User.findById(decoded.data,{_id: 1})
+
+        if(!valid) return res.send({session:false})
+        return res.send({session:true})
+    
+  } catch (error) {
+    console.log(error);
+  }
+}

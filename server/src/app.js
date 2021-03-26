@@ -11,6 +11,7 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json());
 
+
 app.use('/auth', authRouter)
 app.use('/goals', goalsRouter)
 app.use('/profile', profileRouter)
