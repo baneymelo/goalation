@@ -51,14 +51,14 @@ export const signIn = async (req, res) => {
 export const session = async (req, res) => {
   try {
     const authHeader = req.headers['authorization'];
-        
-        if(!authHeader) return res.send({session:false})
-        const token = authHeader.split(' ')[1]
-        const decoded = verify(token, config.SECRET)
-        const valid = await User.findById(decoded.data,{_id: 1})
+    
+      if(!authHeader) return res.send({session:false})
+      const token = authHeader.split(' ')[1]
+      const decoded = verify(token, config.SECRET)
+      const valid = await User.findById(decoded.data,{_id: 1})
 
-        if(!valid) return res.send({session:false})
-        return res.send({session:true})
+      if(!valid) return res.send({session:false})
+      return res.send({session:true})
     
   } catch (error) {
     console.log(error);

@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { NavBar, Section, Form} from "../components";
-
+import { NavBar, Section} from "../components";
 
 const Home = () => {
     return(
