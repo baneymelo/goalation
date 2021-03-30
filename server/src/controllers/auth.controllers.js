@@ -3,10 +3,29 @@ import bcrypt from "bcryptjs";
 import { generateToken, config }  from "../utils";
 import { verify } from "jsonwebtoken";
 
-export const signUp = async (req, res) =>{
 
+export const session = async (req, res) => {
   try {
+    const authHeader = req.headers['authorization'];
+      
+      if(!authHeader) return res.send({auth: false})
+      const token = authHeader.split(' ')[1]
+      const decoded = verify(token, config.SECRET)
+      const valid = await User.findById(decoded.data,{_id: 0, password: 0})
+      
+      if(!valid) return res.send({auth: false})
 
+      
+      return res.send({user: valid, auth: true})
+    
+  } catch (error){
+    return res.send(error.name);
+  }
+}
+
+export const signUp = async (req, res) =>{
+  
+  try {
     console.log(req.body);
     const { email, password, fullname, user_type } = await req.body;
 
@@ -20,7 +39,7 @@ export const signUp = async (req, res) =>{
   await user.save();
   const token = generateToken(user)
 
-  res.status(200).send({token})
+  res.status(200).send({user: await depureUser(email), auth:true, token})
 
   } catch (error) {
     console.log(error);
@@ -32,7 +51,7 @@ export const signIn = async (req, res) => {
   
   try {
     const { email, password } = await req.body;
-    const user = await User.findOne({email}, {_id: 1, password: 1})
+    const user = await User.findOne({email})
 
     if(!user) return res.status(401).json({msg: 'Invalid email'})
     const pwd = await bcrypt.compare(password, user.password)
@@ -40,7 +59,8 @@ export const signIn = async (req, res) => {
     if(!pwd) return res.status(401).json({msg: 'Invalid password'})
     const token = generateToken(user);
 
-    res.status(201).send({token})
+    if(user && token) return res.status(201).send({user: await depureUser(email), auth:true, token})
+
     
   } catch (error) {
     console.log(error);
@@ -48,19 +68,6 @@ export const signIn = async (req, res) => {
 } 
 
 
-export const session = async (req, res) => {
-  try {
-    const authHeader = req.headers['authorization'];
-    
-      if(!authHeader) return res.send({session:false})
-      const token = authHeader.split(' ')[1]
-      const decoded = verify(token, config.SECRET)
-      const valid = await User.findById(decoded.data,{_id: 1})
-
-      if(!valid) return res.send({session:false})
-      return res.send({session:true})
-    
-  } catch (error) {
-    console.log(error);
-  }
+const depureUser = async email =>{
+  return await User.findOne({email},{_id: 0, password: 0})
 }

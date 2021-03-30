@@ -1,10 +1,21 @@
-import React from 'react'
+import {useContext} from 'react'
+import {Redirect, HashRouter} from "react-router-dom";
 
-export default function Dash(props) {
+import { AuthContext } from '../context/Auth/AuthContext'
+import { NavDash } from "../components";
+import Typography from '@material-ui/core/Typography'
 
+const Dash = () => {
+    const { user: {user} } = useContext(AuthContext)
+    console.log(user);
     return (
-        <div>
-            <h1>Welcome {props.user}</h1>
-        </div>
+        <>
+            <NavDash />
+            <Typography variant="h1" color="initial">
+                {user.fullname}
+            </Typography>
+        </>
     )
 }
+
+export default Dash;

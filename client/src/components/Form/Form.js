@@ -1,21 +1,26 @@
-import {React, useState, useContext} from 'react'
+import {React, useState, useContext, useEffect} from 'react'
 import { useForm, Controller } from "react-hook-form";
 import { Container, Typography, CssBaseline, TextField, Avatar, Button, Grid, Link, NativeSelect } from "@material-ui/core";
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useStyles from "./styles";
+
 import { AuthContext } from '../../context/Auth/AuthContext'
 
 export default function Form(props) {
     
     const { handleSubmit, control, errors } = useForm();
-    const { setData, getSignUp, setGetSignUp, setFlagRoute } = useContext(AuthContext)   
+    const { setUserInf, getSignUp, setGetSignUp, postData } = useContext(AuthContext)   
     const [ route, setRoute ] = useState('')
 
     const onSubmit = obj => {
-        setData(obj)
-        setFlagRoute([true,route])
+        setUserInf(obj)
     }
+
+    useEffect(() =>{
+        route && postData(route)
+        setRoute('')
+    },[postData]) 
 
     const classes = useStyles();
 

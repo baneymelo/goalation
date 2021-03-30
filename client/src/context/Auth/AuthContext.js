@@ -1,69 +1,66 @@
 import {React, useState, createContext, useEffect} from 'react'
-
-import axios from '../../helpers/axios';
 import { getToken, setToken} from "../../helpers/auth";
+import axios from "../../helpers/axios";
+
 export const AuthContext  = createContext();
 
 const AuthState = (props) => {
+
+    const initialUserState = {
+        user: {},
+        loading: true,
+        auth: false
+      }    
     
-    const [isLogged, setIsLogged] = useState(false)
+    const [user, setUser] = useState(initialUserState)
+    
+    
+    const verifySession = async () =>{
+      const { data } = await axios.get('/auth/session')
+      setUser(data)
+    }
+    
+    /* useEffect to SIGNIN/UP */
+    
     const [getSignUp, setGetSignUp] = useState(false)
-
-/* useEffect to verifySession */
-
-    useEffect(() =>{
-        const verifySession = async () =>{
-          if(getToken()){
-            const {data: session} = await axios.get('/auth/session')
-            session ? setIsLogged(true) : setIsLogged(false)
-            console.log(session);
-          }
-        }
-        verifySession()
-      },[setIsLogged])
-
-/* useEffect to SIGNIN/UP */
-
-    const [data, setData] = useState({ 
+    const [userInf, setUserInf] = useState({ 
         email: '',
         fullname: '',
         password: '',
         user_type: ''
     })
-    const [flagRoute, setFlagRoute] = useState([false, ''])
+    /* const [flagRoute, setFlagRoute] = useState([false, '']) */
+
+    const updateUser = (newUser) =>{
+      setUser(newUser)
+    }
     
-    useEffect(() =>{
-
-      const postData = async (route) =>{
-          const request = await axios.post(`/auth/${route}`, data);
-          setToken(request.data.token)
-          console.log(request.data.token);
-      }
-      
-      flagRoute[0] && postData(flagRoute[1])
-
-  },[data, flagRoute]) 
+    const postData = async route =>{
+      console.log("Context: ",route);
+      const { data } = await axios.post(`/auth/${route}`, userInf);
+      setUser(data)
+    }
   
 
-    return(
-        <>
-        <AuthContext.Provider value={{
-            isLogged,
-            setIsLogged,
+  return(
+    <>
+      <AuthContext.Provider value={{
+        user,
+        updateUser,
+        verifySession, 
 
-            getSignUp, 
-            setGetSignUp,
+        getSignUp, 
+        setGetSignUp,
 
-            data,
-            setData,
-            flagRoute,
-            setFlagRoute
-            }}>
+        userInf,
+        setUserInf,
+        postData
+        }}>
 
-            {props.children}
-        </AuthContext.Provider>
-        </>
-    )
+        {props.children}
+      </AuthContext.Provider>
+    </>
+  )
 }
 
 export default AuthState;

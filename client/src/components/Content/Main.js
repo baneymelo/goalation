@@ -1,8 +1,8 @@
 import { React, useState } from "react";
-import styles from "./Section.module.css";
+import styles from "./Main.module.css";
 
 
-export default function Section(){
+const Main = () =>{
 
     const [description] = useState({
         greeting: <h1>Hey you!</h1>,
@@ -22,3 +22,5 @@ export default function Section(){
         </div>
     )
 }
+
+export default Main;

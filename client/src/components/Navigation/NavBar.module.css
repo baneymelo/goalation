@@ -20,23 +20,18 @@ body {
     color: #404040;
 }
 
-.nav-title {
+.navTitle {
     font-size: large;
     cursor: pointer;
 }
 
-.nav-menu {
+.navMenu {
     font-size: large;
     display: flex;
     list-style: none;
 }
 
-.nav-link {
+.navLink {
     cursor: pointer;
     margin: 0 25px;
-}
-
-.nav-login {
-    font-size: large;
-    cursor: pointer;
 }

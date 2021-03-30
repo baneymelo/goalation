@@ -1,6 +1,11 @@
-import NavBar from "./NavBar/NavBar";
-import Form from "./Form/Form";
-import Section from "./Section/Section";
+import Main from "./Content/Main";
+import Aboutus from "./Content/Aboutus";
+import Impact from "./Content/Impact";
 import Footer from "./Footer/Footer";
+import NavBar from "./Navigation/NavBar";
+import NavDash from "./Navigation/NavDash";
+import Form from "./Form/Form";
+import Load from "./Load/Load";
 
-export { NavBar, Form, Section, Footer};
+
+export { Main, Aboutus, Impact, NavBar, NavDash, Form, Footer, Load};
