@@ -11,12 +11,12 @@ export const session = async (req, res) => {
       if(!authHeader) return res.send({auth: false})
       const token = authHeader.split(' ')[1]
       const decoded = verify(token, config.SECRET)
-      const valid = await User.findById(decoded.data,{_id: 0, password: 0})
+      const user = await User.findById(decoded.data,{_id: 0, password: 0})
       
-      if(!valid) return res.send({auth: false})
+      if(!user) return res.send({auth: false})
 
       
-      return res.send({user: valid, auth: true})
+      return res.send({ user, auth: true})
     
   } catch (error){
     return res.send(error.name);
@@ -69,5 +69,5 @@ export const signIn = async (req, res) => {
 
 
 const depureUser = async email =>{
-  return await User.findOne({email},{_id: 0, password: 0})
+  return await User.findOne({email},{_id: 0, password: 0, __v:0 })
 }

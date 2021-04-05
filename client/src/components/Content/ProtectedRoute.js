@@ -7,8 +7,6 @@ export const ProtectedRoute = ({
     ...rest
     
   }) => {
-
-    console.log(islogged);
   
     return (
       <Route

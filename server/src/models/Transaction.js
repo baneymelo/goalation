@@ -1,9 +1,8 @@
 import { model, Schema } from 'mongoose'
 
 const transactionSchema = new Schema({
-    date: String,
-    amount: Number,
-    status: [{ type: String}],
-})
+    amount: { type: Number, min: 5},
+    status: { type: String, default: 'bet' }
+}) 
 
-export default model('goal', transactionSchema);
+export default model('transaction', transactionSchema);

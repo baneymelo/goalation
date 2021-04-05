@@ -15,7 +15,7 @@ import './App.css';
 
 const App = () => {
 
-  const { user, verifySession, isLogged, setIsLogged } = useContext(AuthContext)
+  const { user, verifySession } = useContext(AuthContext)
 
 
   /* useEffect to verifySession */

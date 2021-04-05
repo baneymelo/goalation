@@ -17,6 +17,8 @@ export const getProfile = async (req, res)=>{
 export const editProfile = async (req, res)=>{
     
     try {
+
+        const { email } = await req.body;
         req.body = await validateKeys(req.body, res)
         await User.findByIdAndUpdate(req.user, req.body)
 

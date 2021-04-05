@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 const NavDash = (props) =>{
 
   const { history } = props;
-  const { updateUser } = useContext(AuthContext) 
+  const { updateUser, user: {user}} = useContext(AuthContext) 
 
   const newUser = {
     user:{},
@@ -61,7 +61,7 @@ const NavDash = (props) =>{
             Goalation
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            Username
+            {user.fullname}
           </Typography>
           <Tooltip title="Logout">
             <IconButton aria-label="" className={classes.logoutButton} onClick={goAuth}>
