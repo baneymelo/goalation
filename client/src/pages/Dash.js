@@ -1,8 +1,11 @@
+/* eslint-disable no-unused-vars */
 import {useContext, useState, useEffect} from 'react'
 import { withRouter} from "react-router-dom";
 
-import { AuthContext } from '../context/Auth/AuthContext'
-import { removeToken } from "../helpers/auth";
+import AuthContext from '../context/Auth/AuthContext'
+import UserContext from '../context/User/UserContext'
+import GoalContext from '../context/Goal/GoalContext'
+
 import Goals from "../components/Goals/Goals";
 import Profile from "../components/Profile/Profile";
 import Settings from "../components/Settings/Settings";
@@ -38,54 +41,48 @@ import useStyles from "./styles";
 
 const Dash = (props) => {
 
+    const { history } = props;
+    
     /* MUI LOGIC */
 
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+
+    const [ open, setOpen ] = useState(false);
   
     const handleDrawerOpen = () => {
-      setOpen(true);
+        setOpen(true);
     };
   
     const handleDrawerClose = () => {
-      setOpen(false);
+        setOpen(false);
     };
 
+    const { auth, authenticate, unAuthenticate } = useContext(AuthContext) 
+    /* const { updateUser, user: {user}, getGoals, setAllGoal, initialGoalState} = useContext(UserContext)*/ 
+    const { user, clearUserState } = useContext(UserContext) 
+    const { saveGoal, loadGoals, data } = useContext(GoalContext)
   
     /* NAVDASH LOGIC */
-
-    const { history } = props;
-    const { updateUser, user: {user}, getGoals, setAllGoal, initialGoalState} = useContext(AuthContext) 
-  
-    const newUser = {
-      user:{},
-      loading: true,
-      auth: false
-    }
-
   
     const goAuth = () => {
-      removeToken();
-      updateUser(newUser)
-      setAllGoal([initialGoalState])
-      history.push(`/auth`)
+        clearUserState();
+        unAuthenticate();
+        history.push(`/auth`)
     }
 
     /* DASH LOGIC */
     
-    const [content, setContent] = useState(1);
+    const [ content, setContent ] = useState(1);
     
-    const handlerClick = (e) => {
+    const handlerClick = e => {
         const opt = e.currentTarget.getAttribute('index')
         setContent(~~opt);
         console.log(opt);
     }
 
-
-
     useEffect(()=>{
-        getGoals()
+        loadGoals()
     },[])
 
     return (
@@ -163,7 +160,7 @@ const Dash = (props) => {
             </Drawer>
             
             { 
-                content === 0  
+            content === 0  
                 ? <Profile/>
                 : content === 1   
                     ? <Goals/>
@@ -171,11 +168,7 @@ const Dash = (props) => {
                         ? <Settings/>
                         : false
             } 
-
-            
-                             
-
-    </div>
+        </div>
     )
 }
 

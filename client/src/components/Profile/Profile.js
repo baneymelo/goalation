@@ -1,6 +1,5 @@
 import {React, useContext, useState} from "react"
 
-
 import { Grid, Typography } from '@material-ui/core'
 import { profileStyles } from "./styles";
 

@@ -14,15 +14,16 @@ import {
   } from "react-router-dom";
 import {Container, Grid} from "@material-ui/core";
 import { NavBar, Form, Signup } from "../components";
-import { AuthContext } from '../context/Auth/AuthContext'
+import AuthContext from '../context/Auth/AuthContext'
 
 export default function Auth() {
-    const { user } = useContext(AuthContext)
+
+    const { auth } = useContext(AuthContext)
 
     return (
         <>
         <Form />
-        { user.auth && <Redirect to='/dashboard'/>}
+        { auth.logged && <Redirect to='/dashboard'/>}
         </>
     )
 }

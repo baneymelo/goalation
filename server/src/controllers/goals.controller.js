@@ -10,8 +10,8 @@ export const getGoals = async (req, res)=>{
     
         if(!goals) return res.status(400).json(0)
         
-        if(!goals.length) return res.status(200).send({goals:false})
-        return res.status(200).send({goals})
+        if(!goals.length) return res.status(200).send({ goals:false })
+        return res.status(200).send({ goals })
 
     } catch (error) {
         return res.status(400)

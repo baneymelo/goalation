@@ -29,9 +29,6 @@ const History = (props) => {
         return date;
     }
 
-    
-
-
     if(currentGoal?.noob){
         return <></>
     }else{

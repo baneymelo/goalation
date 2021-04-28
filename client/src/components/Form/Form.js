@@ -5,22 +5,27 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useStyles from "./styles";
 
-import { AuthContext } from '../../context/Auth/AuthContext'
+import AuthContext from '../../context/Auth/AuthContext'
+import UserContext from '../../context/Auth/AuthContext'
 
 export default function Form(props) {
     
-    const { handleSubmit, control, errors } = useForm();
-    const { setUserInf, getSignUp, setGetSignUp, postData } = useContext(AuthContext)   
-    const [ route, setRoute ] = useState('')
+    const { auth, authenticate } = useContext(AuthContext)   
+    const { user, login, register } = useContext(UserContext)
 
-    const onSubmit = obj => {
-        setUserInf(obj)
+    const { handleSubmit, control, errors } = useForm();
+    const [ userForm, setUserForm ] = useState({})
+    const [ optionForm, setOptionForm ] = useState(0)
+
+    const onSubmit = data => {
+        setUserForm(data)
     }
 
     useEffect(() =>{
-        route && postData(route)
-        setRoute('')
-    },[postData]) 
+        if(optionForm) register(userForm)
+        if(!optionForm) login(userForm)
+        authenticate()
+    },[userForm])
 
     const classes = useStyles();
 
@@ -32,20 +37,20 @@ export default function Form(props) {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5" color="primary">
-                      {getSignUp ? 'Sign Up' : 'Sign in' }
+                      { optionForm ? 'Sign Up' : 'Sign in' }
                 </Typography>
 
                 <form className={classes.form} onSubmit={handleSubmit(onSubmit)} noValidate>  
 
                 {
-                getSignUp
+                optionForm
                 ?
-                <Signup errors={errors} control={control} classes={classes} setRoute={setRoute}/>
+                <Signup errors={errors} control={control} classes={classes} setOptionForm={setOptionForm}/>
                 :
-                <Signin errors={errors} control={control} classes={classes} setRoute={setRoute}/>
+                <Signin errors={errors} control={control} classes={classes} setOptionForm={setOptionForm}/>
                 }
 
-                <Options  getSignUp={getSignUp} setGetSignUp={setGetSignUp}/>
+                <Options  optionForm={optionForm} setOptionForm={setOptionForm}/>
 
 
                 </form>
@@ -56,7 +61,7 @@ export default function Form(props) {
 }
 
 
-const Signin = ({errors, control, classes, setRoute}) => {
+const Signin = ({errors, control, classes, setOptionForm}) => {
     
 
     const ErrorHandler = errorProps =>{
@@ -71,7 +76,7 @@ const Signin = ({errors, control, classes, setRoute}) => {
     }
 
     const updateRoute = () =>{
-        setRoute('signin')
+        setOptionForm(0)
     }
 
     return(
@@ -149,7 +154,7 @@ const Signin = ({errors, control, classes, setRoute}) => {
         </>
     )
 }
-const Signup = ({errors, control, classes, setRoute}) => {
+const Signup = ({errors, control, classes, setOptionForm}) => {
     
 
     const ErrorHandler = errorProps =>{
@@ -164,7 +169,7 @@ const Signup = ({errors, control, classes, setRoute}) => {
     }
 
     const updateRoute = () =>{
-        setRoute('signup')
+        setOptionForm(1)
     }
 
     return(
@@ -277,13 +282,12 @@ const Signup = ({errors, control, classes, setRoute}) => {
     )
 }
 
-
-const Options = ({getSignUp,setGetSignUp}) => {
+const Options = ({ optionForm, setOptionForm }) => {
     
     const update = () =>{
-        getSignUp ? setGetSignUp(false): setGetSignUp(true)
+        optionForm ? setOptionForm(0): setOptionForm(1)
     }
-    if(getSignUp){
+    if(optionForm){
         
         return(
             <Grid 
