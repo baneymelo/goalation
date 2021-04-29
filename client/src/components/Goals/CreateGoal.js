@@ -23,7 +23,7 @@ import Modal from '@material-ui/core/Modal';
 import Fade from '@material-ui/core/Fade';
 
 
-import { AuthContext } from '../../context/Auth/AuthContext'
+import AuthContext from '../../context/Auth/AuthContext'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { modalStyles, RegGoalStyles } from "./styles";

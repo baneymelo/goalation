@@ -7,13 +7,13 @@ import History from "./History";
 import { Grid, Typography } from '@material-ui/core'
 import { goalStyles } from "./styles";
 
-import { AuthContext } from "../../context/Auth/AuthContext";
+import GoalContext from "../../context/Goal/GoalContext";
 
 const Goals = () => {
 
     const classes = goalStyles();
 
-    const { allGoals } = useContext(AuthContext)
+    const { goal } = useContext(GoalContext)
 
 
 

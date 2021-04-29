@@ -23,7 +23,7 @@ const userSchema = new Schema({
     goals_id: [{ type: Schema.Types.ObjectId, ref: 'Goal' }],
     rewards: [{ type: String }],
     user_type: String,
-    wallet_balance: Number
+    /* wallet_balance: Number */
 
 })
 

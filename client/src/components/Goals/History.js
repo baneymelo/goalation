@@ -11,9 +11,9 @@ import Link from '@material-ui/core/Link';
 import Moment from 'react-moment';
 
 
-import {historyStyles} from "./styles";
+import { historyStyles } from "./styles";
 
-import { AuthContext } from '../../context/Auth/AuthContext'
+import AuthContext from '../../context/Auth/AuthContext'
 
 const History = (props) => {
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import AuthState from "../src/context/Auth/AuthContext";
+import AuthState from "../src/context/Auth/AuthState";
 import { initAxiosInterceptors } from "./helpers/auth";
 
 initAxiosInterceptors()

@@ -11,7 +11,12 @@ const UserReducer = (user, action) => {
             return payload;
     
         case REGISTER:
-            return payload;
+            return { 
+                ...user, 
+                email: payload.email,
+                fullname: payload.fullname,
+                user_type: payload.user_type
+            };
     
         case LOGOUT:
             return payload;

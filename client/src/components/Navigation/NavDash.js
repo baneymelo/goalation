@@ -1,7 +1,7 @@
 import {React, useState, useContext} from "react";
 import {Link, withRouter } from "react-router-dom";
 import { removeToken } from "../../helpers/auth";
-import { AuthContext } from '../../context/Auth/AuthContext'
+import AuthContext from '../../context/Auth/AuthContext'
 
 import { AppBar, Toolbar, Typography, IconButton, Button, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

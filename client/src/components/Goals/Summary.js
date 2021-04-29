@@ -5,7 +5,7 @@ import { summaryStyles } from "./styles";
 
 import pic from "../../assets/img/goal.gif";
 
-import { AuthContext } from '../../context/Auth/AuthContext'
+import AuthContext from '../../context/Auth/AuthContext'
 import { Load } from "../index";
 
 const Summary = () => {

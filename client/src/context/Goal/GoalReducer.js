@@ -1,6 +1,6 @@
 import { GOAL_TYPES } from "../types";
 
-const { SAVE, LOAD, EDIT } = GOAL_TYPES;
+const { SAVE, LOAD } = GOAL_TYPES;
 
 const GoalReducer = (goal, action) => {
 
@@ -8,12 +8,9 @@ const GoalReducer = (goal, action) => {
 
     switch (type) {
         case SAVE:
-            return goal.push(payload);
+            return [...goal, payload ];
     
         case LOAD:
-            return payload;
-    
-        case EDIT:
             return payload;
     
         default:

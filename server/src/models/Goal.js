@@ -7,7 +7,7 @@ const goalSchema = new Schema({
     expire_date: Date,
     amount: Number,
 
-    status: {type: String, default: 'In progress'},
+    status: { type: String, default: 'In progress' },
     user_id: { type: Schema.Types.ObjectId, ref: 'User' },
     transaction_id: { type: Schema.Types.ObjectId, ref: 'Transaction' }
 })

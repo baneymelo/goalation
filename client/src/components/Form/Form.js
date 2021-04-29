@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from "./styles";
 
 import AuthContext from '../../context/Auth/AuthContext'
-import UserContext from '../../context/Auth/AuthContext'
+import UserContext from '../../context/User/UserContext'
 
 export default function Form(props) {
     
@@ -16,16 +16,19 @@ export default function Form(props) {
     const { handleSubmit, control, errors } = useForm();
     const [ userForm, setUserForm ] = useState({})
     const [ optionForm, setOptionForm ] = useState(0)
+    const [ flag, setFlag ] = useState(false)
 
     const onSubmit = data => {
         setUserForm(data)
+        setFlag(true)
     }
-
+    
     useEffect(() =>{
-        if(optionForm) register(userForm)
-        if(!optionForm) login(userForm)
-        authenticate()
-    },[userForm])
+        if(flag){
+            if(optionForm) register(userForm)
+            if(!optionForm) login(userForm)
+        }
+    },[flag])
 
     const classes = useStyles();
 

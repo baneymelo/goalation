@@ -2,7 +2,7 @@
 import {useContext} from 'react'
 import {Redirect, Route, Switch} from "react-router-dom";
 
-import { AuthContext } from '../context/Auth/AuthContext'
+import AuthContext from '../context/Auth/AuthContext'
 import { Main, Aboutus, Impact, NavBar, Load} from "../components";
 
 const Home = () => {
@@ -12,7 +12,7 @@ const Home = () => {
     <>
         <NavBar />
         <Main />
-        { isLogged && <Redirect to='/dashboard'/> }
+        {/* { isLogged && <Redirect to='/dashboard'/> } */}
     </>
     )
 }

@@ -8,14 +8,14 @@ export const session = async (req, res) => {
   try {
     const authHeader = req.headers['authorization'];
       
-    if(!authHeader) return res.send({ logged: false })
+    if(!authHeader) return res.status(400).send({ logged: false })
     const token = authHeader.split(' ')[1]
     const decoded = verify(token, config.SECRET)
     const user = await User.findById(decoded.data,{_id: 0, password: 0})
     
-    if(!user) return res.send({ logged: false })
+    if(!user) return res.status(400).send({ logged: false })
 
-    return res.send({ logged: true})
+    return res.status(200).send({ logged: true })
     
   } catch (error){
     return res.send(error.name);
@@ -38,7 +38,7 @@ export const signUp = async (req, res) =>{
   await user.save();
   const token = generateToken(user)
 
-  res.status(200).send({user: await depureUser(email), token})
+  res.status(200).send({ user: await depureUser(email), token })
 
   } catch (error) {
     console.log(error);
@@ -52,10 +52,10 @@ export const signIn = async (req, res) => {
     const { email, password } = await req.body;
 
     const user = await User.findOne({email})
-    if(!user || !pwd) return res.status(401).json({msg: 'Please verify the email or password'})
+    if(!user) return res.status(401).send({msg: 'Please verify the email or password'})
     
     const pwd = await bcrypt.compare(password, user.password)
-    if(!pwd) return res.status(401).json({msg: 'Please verify the email or password'})
+    if(!pwd) return res.status(401).send({msg: 'Please verify the email or password'})
 
     const token = generateToken(user);
     if(user && token) return res.status(201).send({user: await depureUser(email), token})
@@ -68,5 +68,5 @@ export const signIn = async (req, res) => {
 
 
 const depureUser = async email =>{
-  return await User.findOne({email},{_id: 0, password: 0, __v:0 })
+  return await User.findOne({email},{ _id: 0, password: 0, __v:0 })
 }

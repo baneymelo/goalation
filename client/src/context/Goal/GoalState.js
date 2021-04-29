@@ -6,11 +6,11 @@ import UserContext from "../User/UserContext";
 import GoalContext from "./GoalContext";
 import axios from "../../helpers/axios";
 
-const { SAVE, LOAD, EDIT } = GOAL_TYPES;
+const { SAVE, LOAD } = GOAL_TYPES;
 
 const GoalState = ({children}) => {
   
-  const initialGoalState = [{}]
+  const initialGoalState = []
 
   const [ goal, dispatch ] = useReducer(GoalReducer, initialGoalState)
 
@@ -20,19 +20,20 @@ const GoalState = ({children}) => {
   }
 
   const loadGoals = async () => {
-    const { data } = await axios.get('/goals/')
-    dispatch({ type: LOAD, payload: data })
+    const { data: goals } = await axios.get('/goals/')
+    console.log(goals);
+    dispatch({ type: LOAD, payload: goals })
   }
 
-  const editGoal = async () => {
-  }
+/*   const editGoal = async () => {
+  } */
 
   return(
     <>
       <GoalContext.Provider value={{
+          goal,
           saveGoal,
           loadGoals,
-          editGoal
       }}>
         {children}
       </GoalContext.Provider>

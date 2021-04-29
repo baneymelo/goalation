@@ -2,7 +2,7 @@ import { React, useState, useReducer } from 'react'
 import { AUTH_TYPES } from "../types";
 import AuthContext from "./AuthContext";
 import AuthReducer from "./AuthReducer";
-import { removeToken } from "../helpers/auth";
+import { removeToken } from "../../helpers/auth";
 import axios from "../../helpers/axios";
 
 const { AUTH, UNAUTH } = AUTH_TYPES;
@@ -10,13 +10,14 @@ const { AUTH, UNAUTH } = AUTH_TYPES;
 const AuthState = ({children}) => {
   
   const initialAuthState = {
-    logged: false,
-    isLoading: true
+    isLogged: false,
+    isLoading: true,
+    session: {}
   }    
 
-  const [auth, dispatch] = useReducer(AuthReducer, initialAuthState)
+  const [ auth, dispatch ] = useReducer(AuthReducer, initialAuthState)
   
-  const authenticate = async () =>{
+  const authenticate = async () => {
     const { data } = await axios.get('/auth/session')
     dispatch({ type: AUTH, payload: data })
   }

@@ -8,10 +8,10 @@ const AuthReducer = (auth, action) => {
 
     switch (type) {
         case AUTH:
-            return payload;
+            return { isLogged: payload.logged, isLoading: false, session: payload.session };
     
         case UNAUTH:
-            return { logged: payload };
+            return { isLogged: payload, isLoading: true, session: {} };
     
         default:
             return auth;

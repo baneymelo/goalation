@@ -6,9 +6,9 @@ import AuthContext from '../context/Auth/AuthContext'
 import UserContext from '../context/User/UserContext'
 import GoalContext from '../context/Goal/GoalContext'
 
-import Goals from "../components/Goals/Goals";
+/* import Goals from "../components/Goals/Goals";
 import Profile from "../components/Profile/Profile";
-import Settings from "../components/Settings/Settings";
+import Settings from "../components/Settings/Settings"; */
 
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
@@ -59,17 +59,17 @@ const Dash = (props) => {
     };
 
     const { auth, authenticate, unAuthenticate } = useContext(AuthContext) 
-    /* const { updateUser, user: {user}, getGoals, setAllGoal, initialGoalState} = useContext(UserContext)*/ 
-    const { user, clearUserState } = useContext(UserContext) 
-    const { saveGoal, loadGoals, data } = useContext(GoalContext)
+    const { user, logout } = useContext(UserContext) 
+    const { goal, saveGoal, loadGoals } = useContext(GoalContext)
   
     /* NAVDASH LOGIC */
   
     const goAuth = () => {
-        clearUserState();
-        unAuthenticate();
+        logout();
         history.push(`/auth`)
     }
+
+    console.log(user);
 
     /* DASH LOGIC */
     
@@ -159,7 +159,7 @@ const Dash = (props) => {
                 <Divider />
             </Drawer>
             
-            { 
+            {/* { 
             content === 0  
                 ? <Profile/>
                 : content === 1   
@@ -167,7 +167,7 @@ const Dash = (props) => {
                     : content === 2 
                         ? <Settings/>
                         : false
-            } 
+            }  */}
         </div>
     )
 }

@@ -12,24 +12,29 @@ const UserState = ({children}) => {
   const initialUserState = {
     email: '',
     fullname: '',
-    password: '',
+    goals_id: [],
+    rewards: [],
     user_type: ''
   }
     
   const [user, dispatch] = useReducer(UserReducer, initialUserState)
+  const { authenticate, unAuthenticate} = useContext(AuthContext)
   
   const login = async userForm => {
     const { data } = await axios.post('/auth/signin', userForm); 
     dispatch({ type: LOGIN, payload: data.user })
+    authenticate()
   }
 
   const register = async userForm => {
     const { data } = await axios.post('/auth/signup', userForm); 
     dispatch({ type: LOGIN, payload: data.user })
+    authenticate()
   }
 
-  const clearUserState = () => {
+  const logout = () => {
     dispatch({ type: LOGOUT, payload: initialUserState })
+    unAuthenticate()
   }  
   return(
     <>
@@ -37,7 +42,7 @@ const UserState = ({children}) => {
         user,
         login,
         register,
-        clearUserState,
+        logout,
       }}>
         {children}
       </UserContext.Provider>

@@ -15,8 +15,10 @@ export default function CircularIndeterminate() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root} >
-        <CircularProgress />
+    <div>
+      <div className={classes.root} >
+          <CircularProgress />
+      </div> 
     </div>
-  );
+    )
 }
