@@ -12,6 +12,17 @@ services:
             - ./server:/app
             - /app/node_modules
 
+    client:
+        build: ./client
+        image: goal/client
+        ports:
+            - "3000:3000"
+        command: npm start
+        volumes: 
+            - ./client:/app
+            - /app/node_modules
+ 
+
     mongodb:
         image: mongo:4.0.20-xenial
         volumes: 
