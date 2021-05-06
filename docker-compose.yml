@@ -7,7 +7,7 @@ services:
         env_file: ./server/.env
         ports:
             - "3001:3001"
-        command: npm run server
+        command: npm run docker
         volumes: 
             - ./server:/app
             - /app/node_modules

@@ -22,7 +22,8 @@
   "scripts": {
     "build": "babel src --out-dir build",
     "server": "npx nodemon src/index.js --exec babel-node",
-    "start": "nodemon build/index.js"
+    "start": "nodemon build/index.js",
+    "docker": "npx nodemon -L src/index.js --exec babel-node"
   }, 
   "author": "Baney Acosta, Tobias Boldizar, Ferds Guiang, Kevin Devial",
   "license": "MIT"

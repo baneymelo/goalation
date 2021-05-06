@@ -6,16 +6,18 @@ import { verify } from "jsonwebtoken";
 
 export const session = async (req, res) => {
   try {
+    console.log("CHUIS");
     const authHeader = req.headers['authorization'];
       
     if(!authHeader) return res.status(400).send({ logged: false })
+
     const token = authHeader.split(' ')[1]
     const decoded = verify(token, config.SECRET)
-    const user = await User.findById(decoded.data,{_id: 0, password: 0})
+    const user = await User.findById(decoded.data,{_id: 0, password: 0, __v:0})
     
     if(!user) return res.status(400).send({ logged: false })
 
-    return res.status(200).send({ logged: true })
+    return res.status(200).send({ logged: true , session: user })
     
   } catch (error){
     return res.send(error.name);
@@ -58,7 +60,7 @@ export const signIn = async (req, res) => {
     if(!pwd) return res.status(401).send({msg: 'Please verify the email or password'})
 
     const token = generateToken(user);
-    if(user && token) return res.status(201).send({user: await depureUser(email), token})
+    if(user && token) return res.status(201).send({ user: await depureUser(email), token })
 
     
   } catch (error) {
