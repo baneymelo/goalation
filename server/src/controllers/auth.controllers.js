@@ -6,7 +6,7 @@ import { verify } from "jsonwebtoken";
 
 export const session = async (req, res) => {
   try {
-    console.log("CHUIS");
+    
     const authHeader = req.headers['authorization'];
       
     if(!authHeader) return res.status(400).send({ logged: false })
