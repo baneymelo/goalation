@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Frontend
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
       - "README.md" 
       - "docs/**" 
       - ".insomnia/**"
-      - "client/**"
+      - "server/**"
 
 jobs:
   deploy:
@@ -18,7 +18,7 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "goalation-server" #Must be unique in Heroku
+          heroku_app_name: "goalation-client" #Must be unique in Heroku
           heroku_email: "baneymelo@gmail.com"
           usedocker: true
-          appdir: server
+          appdir: client
