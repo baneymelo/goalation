@@ -1,6 +1,6 @@
-import { config } from "../utils";
-import { verify } from "jsonwebtoken";
-import User from "../models/User";
+const { config } = require("../utils");
+const { verify } = require("jsonwebtoken");
+const User = require("../models/User");
 
 const verifyToken = async (req, res, next) =>{
     try {
@@ -20,4 +20,4 @@ const verifyToken = async (req, res, next) =>{
     }
 }
 
-export default verifyToken;
+module.exports = verifyToken;

@@ -1,5 +1,5 @@
-import { model, Schema } from 'mongoose'
-import bcrypt from "bcryptjs";
+const { model, Schema} = require('mongoose');
+const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema({
     email:
@@ -32,4 +32,6 @@ userSchema.statics.encryptPassword = async (psw) => {
     return await bcrypt.hash(psw, salt)
 }
 
-export default model('user', userSchema);
+const User = model('user', userSchema);
+
+module.exports = User;

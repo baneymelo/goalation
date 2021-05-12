@@ -1,10 +1,10 @@
-import User from "../models/User";
-import bcrypt from "bcryptjs";
-import { generateToken, config }  from "../utils";
-import { verify } from "jsonwebtoken";
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const { generateToken, config } = require("../utils");
+const { verify } = require("jsonwebtoken");
 
 
-export const session = async (req, res) => {
+module.exports.session = async (req, res) => {
   try {
     
     const authHeader = req.headers['authorization'];
@@ -24,7 +24,7 @@ export const session = async (req, res) => {
   }
 }
 
-export const signUp = async (req, res) =>{
+module.exports.signUp = async (req, res) =>{
   
   try {
     console.log(req.body);
@@ -48,7 +48,7 @@ export const signUp = async (req, res) =>{
 }
 
 
-export const signIn = async (req, res) => {
+module.exports.signIn = async (req, res) => {
   
   try {
     const { email, password } = await req.body;

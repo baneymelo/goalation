@@ -1,4 +1,4 @@
-import User from "../models/User";
+const User = require("../models/User");
 
 const checkDuplicate = async (req, res, next) =>{
     try {
@@ -13,4 +13,4 @@ const checkDuplicate = async (req, res, next) =>{
     }
 }
 
-export default checkDuplicate;
+module.exports = checkDuplicate;

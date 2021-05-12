@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose'
+const { model, Schema } = require('mongoose')
 
 const goalSchema = new Schema({
     name: String,
@@ -12,8 +12,6 @@ const goalSchema = new Schema({
     transaction_id: { type: Schema.Types.ObjectId, ref: 'Transaction' }
 })
 
-
-
 goalSchema.statics.verifyDate = async ed => {
     let date = new Date();
 
@@ -21,4 +19,6 @@ goalSchema.statics.verifyDate = async ed => {
     return ed;
 }
 
-export default model('goal', goalSchema);
+const Goal = model('goal', goalSchema);
+
+module.exports = Goal;

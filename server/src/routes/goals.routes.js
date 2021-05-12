@@ -1,10 +1,10 @@
-import { Router } from "express";
-import verifyToken from "../middlewares/verifyToken";
-import * as goalsCtrl from "../controllers/goals.controller";
+const { Router } = require("express");
+const verifyToken = require("../middlewares/verifyToken");
+const { getGoals, createGoal, editGoal } = require("../controllers/goals.controller");
 const router = Router();
 
-router.get('/', verifyToken, goalsCtrl.getGoals)
-router.post('/', verifyToken, goalsCtrl.createGoal)
-router.put('/:goalId', verifyToken, goalsCtrl.editGoal)
+router.get('/', verifyToken, getGoals)
+router.post('/', verifyToken, createGoal)
+router.put('/:goalId', verifyToken, editGoal)
 
-export default router;
+module.exports = router;
