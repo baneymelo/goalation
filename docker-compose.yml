@@ -13,7 +13,9 @@ services:
             - /app/node_modules
 
     client:
-        build: ./client
+        build: 
+            context: ./client 
+            dockerfile: Dockerfile.dev
         image: goal/client
         ports:
             - "3000:3000"
