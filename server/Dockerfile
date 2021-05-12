@@ -5,3 +5,4 @@ ENV NODE_ENV=development
 RUN npm install -s
 COPY ./ ./
 EXPOSE 3001
+CMD [ "npm", "start" ]
