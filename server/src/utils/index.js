@@ -1,7 +1,7 @@
-import config from "./config";
-import database from "./database";
-import generateToken from "./generateToken";
-import validateKeys from "./depurateBody";
+const config = require("./config");
+const database = require("./database");
+const generateToken = require("./generateToken");
+const validateKeys = require("./depurateBody");
 
 
-export { config, database, generateToken, validateKeys};
+module.exports = { config, database, generateToken, validateKeys };

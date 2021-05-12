@@ -1,4 +1,4 @@
-import User from "../models/User";
+const User = require("../models/User");
 
 const validateKeys = async (obj, res) =>{
     
@@ -27,4 +27,4 @@ const existEmail = async arg =>{
     return await User.findOne({email: arg},{_id: 0, email: 1}) 
 }
 
-export default validateKeys;
+module.exports = validateKeys;

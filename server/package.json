@@ -13,18 +13,13 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/node": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
     "nodemon": "^2.0.7"
   },
   "scripts": {
-    "build": "babel src --out-dir build",
-    "server": "npx nodemon src/index.js --exec babel-node",
-    "start": "nodemon build/index.js",
-    "docker": "npx nodemon -L src/index.js --exec babel-node"
-  }, 
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "docker": "npx nodemon -L src/index.js"
+  },
   "author": "Baney Acosta, Tobias Boldizar, Ferds Guiang, Kevin Devial",
   "license": "MIT"
 }

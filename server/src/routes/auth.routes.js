@@ -1,10 +1,10 @@
-import { Router } from "express";
-import * as authCtrl from "../controllers/auth.controllers";
-import checkDuplicate from "../middlewares/checkDuplicate";
+const { Router } = require("express");
+const { session, signIn, signUp } = require("../controllers/auth.controllers");
+const checkDuplicate = require("../middlewares/checkDuplicate");
 const router = Router();
 
-router.get('/session', authCtrl.session)
-router.post('/signup', checkDuplicate, authCtrl.signUp)
-router.post('/signin', authCtrl.signIn)
+router.get('/session', session)
+router.post('/signup', checkDuplicate, signUp)
+router.post('/signin', signIn)
 
-export default router;
+module.exports = router;

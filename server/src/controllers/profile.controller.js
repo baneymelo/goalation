@@ -1,9 +1,9 @@
-import User from "../models/User";
-import Goal from "../models/Goal";
-import { validateKeys } from "../utils";
+const User = require("../models/User");
+const Goal = require("../models/Goal");
+const { validateKeys } = require("../utils");
 
 
-export const getProfile = async (req, res)=>{
+module.exports.getProfile = async (req, res)=>{
     
     try {
         const user = await User.findById(req.user, {_id:0, email:1, fullname:1, username:1})
@@ -14,7 +14,7 @@ export const getProfile = async (req, res)=>{
     }   
 }
 
-export const editProfile = async (req, res)=>{
+module.exports.editProfile = async (req, res)=>{
     
     try {
 

@@ -1,9 +1,9 @@
-import User from "../models/User";
-import Goal from "../models/Goal";
-import Transaction from "../models/Transaction";
+const User = require("../models/User");
+const Goal = require("../models/Goal");
+const Transaction = require("../models/Transaction");
 
 
-export const getGoals = async (req, res)=>{
+module.exports.getGoals = async (req, res)=>{
     
     try {
         const goals = await Goal.find({ user_id: req.userId},{ user_id: 0, transaction_id: 0, __v: 0 })
@@ -18,7 +18,7 @@ export const getGoals = async (req, res)=>{
     }   
 }
 
-export const createGoal = async (req, res)=>{
+module.exports.createGoal = async (req, res)=>{
 
     try {
         const { name, category, period, expire_date, amount } = req.body;
@@ -51,7 +51,7 @@ export const createGoal = async (req, res)=>{
     }
 }
 
-export const editGoal = async (req, res)=>{
+module.exports.editGoal = async (req, res)=>{
 
     try {
         const { name, period, category, expire_date } = req.body;
