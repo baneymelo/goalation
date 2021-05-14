@@ -40,7 +40,7 @@ module.exports.signUp = async (req, res) =>{
   await user.save();
   const token = generateToken(user)
 
-  res.status(200).send({ user: await depureUser(email), token })
+  return res.status(200).send({ user: await depureUser(email), token })
 
   } catch (error) {
     console.log(error);
