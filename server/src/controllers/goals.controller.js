@@ -44,7 +44,7 @@ module.exports.createGoal = async (req, res)=>{
 
         await goal.save();
         console.log(goal);
-        res.status(201).send({})
+        return res.status(201).send({msg: "successfully goal created"})
 
     } catch (error) {
         return res.status(400)
@@ -57,7 +57,7 @@ module.exports.editGoal = async (req, res)=>{
         const { name, period, category, expire_date } = req.body;
         await Goal.findByIdAndUpdate(req.userId, {name, period, category, expire_date})
 
-        res.status(201).json('Goal successfully modified')
+        return res.status(201).json({ msg: 'Goal successfully modified'})
 
     } catch (error) {
         return res.status(400)
