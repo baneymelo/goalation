@@ -18,8 +18,10 @@ export const initAxiosInterceptors = () => {
             if(token){
                 request.headers.authorization = `Bearer ${token}`
             }
+        console.log("request: ", request);
         return request;
     }, error =>{
+        console.log("error: ", error);
         return Promise.reject(error)
     })
     
@@ -40,6 +42,7 @@ export const initAxiosInterceptors = () => {
         return response;
     },
     error =>{
+        console.log(error);
         return Promise.reject(error.message);
     })
 }
